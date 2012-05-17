@@ -1,0 +1,30 @@
+.tiles {
+    width: 399px;
+    margin: 100px auto;
+}
+
+.tiles div {
+    width: 133px;
+    height: 133px;
+    float: left;
+}
+
+.tile-0 {
+    background-image: url(../img/tile-0.png);
+}
+
+.tile-1 {
+    background-image: url(../img/tile-1.png);
+}
+
+.tile-3 {
+    background-image: url(img/tile-3.png);
+}
+
+.tile-5 {
+    background-image: url(img/tile-5.png);
+}
+
+.tile-6 {
+    background-image: url(sub/img/tile-6.png);
+}
