@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 from werkzeug.wrappers import Request, Response
 from werkzeug.wsgi import SharedDataMiddleware
@@ -12,6 +12,8 @@ manifest_path = os.path.realpath(os.path.join(os.path.dirname(__file__), '.stati
 environment.manifest = 'file://%s' % manifest_path
 environment.cache = False
 environment.auto_build = True
+environment.url = 'http://0.0.0.0:4000/static/'
+#environment.debug = True
 
 css = Bundle(
     'css/main.css',
@@ -24,6 +26,7 @@ externalassets = ExternalAssets(('css/img/*', 'img/*', 'css/sub/img/*'))
 
 environment.register('css', css)
 environment.register_externals(externalassets)
+environment.config['external_assets_output_folder'] = 'genimg/' 
 
 #print environment.manifest.get_manifest()
 
@@ -39,7 +42,9 @@ page = """
             <div class="tile-2"></div>
             <div class="tile-3"></div>
             <div class="tile-4"></div>
-            <div class="tile-5"></div>
+            <div class="tile-5">
+                <img width="133" height="133" src="%(tile_five)s">
+            </div>
             <div class="tile-6"></div>
             <div class="tile-7"></div>
             <div class="tile-8"></div>
@@ -49,9 +54,10 @@ page = """
 """ % (
     {
         'css_urls': ''.join(
-            ['<link rel="stylesheet" type="text/css" href="%s" media="screen" />\n' % url
+            ['<link rel="stylesheet" type="text/css" href="%s" media="screen">\n' % url
                 for url in environment['css'].urls()]
-        )
+        ),
+        'tile_five': environment.external_assets.url('css/img/tile-5.png')
     }
 )
 
