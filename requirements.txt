@@ -1,0 +1,2 @@
+werkzeug
+-e git://github.com/tobiasandtobias/webassets.git@feature/issue-117#egg=webassets

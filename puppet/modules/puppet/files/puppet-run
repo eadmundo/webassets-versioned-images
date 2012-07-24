@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Initiate Puppet run.
+#
+# daniel.simmons@tobias.tv
+# 2012-03-29
+#
+
+/usr/bin/puppet agent --onetime --verbose --ignorecache --no-daemonize
