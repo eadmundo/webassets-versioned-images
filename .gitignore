@@ -30,3 +30,5 @@ venv/
 genimg/
 gencss/
 .DS_Store
+.static-manifest
+.vagrant
