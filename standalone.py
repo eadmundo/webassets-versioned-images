@@ -19,19 +19,23 @@ environment.url = '//0.0.0.0:5000/static/'
 css = Bundle(
     'css/main.css',
     'css/sub/sub-main.css',
-#    filters='cssrewrite',
-    filters=get_filter('cssrewrite', external='externals'),
+    filters='cssrewrite',
     output='gencss/css-merged.%(version)s.css'
 )
 
-externalassets = ExternalAssets(
+external_main = ExternalAssets(
     'css/img/*',
     'img/*',
+    output='genimg/'
+)
+
+external_sub = ExternalAssets(
     'css/sub/img/*',
     output='genimg/'
 )
 
-environment.register('externals', externalassets)
+environment.register('external_main', external_main)
+environment.register('external_sub', external_sub)
 environment.register('css', css)
 environment.config['external_assets_output_folder'] = 'genimg/'
 
@@ -64,7 +68,7 @@ page = """
             ['<link rel="stylesheet" type="text/css" href="%s" media="screen">\n' % url
                 for url in environment['css'].urls()]
         ),
-        'tile_five': environment['externals'].url('css/img/tile-5.png')
+        'tile_five': environment['external_main'].url('css/img/tile-5.png')
     }
 )
 

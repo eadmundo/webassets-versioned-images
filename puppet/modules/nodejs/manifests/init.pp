@@ -35,25 +35,25 @@ class nodejs {
   package { ["g++", "libexpat1-dev"]:
     ensure => installed,
   }
-  
+
   exec { 'less-install':
     command => '/usr/bin/npm install -g less',
     creates => '/usr/bin/lessc',
     require => Package['npm'],
   }
-  /*
+
   exec { 'uglify-js-install':
     command => '/usr/bin/npm install -g uglify-js',
     creates => '/usr/bin/lessc',
     require => Package['npm'],
   }
-  
+
   exec { 'coffee-script-install':
     command => '/usr/bin/npm install -g coffee-script',
     creates => '/usr/bin/lessc',
     require => Package['npm'],
   }
-  
+  /*
   exec { 'clean-css-install':
     command => '/usr/bin/npm install -g clean-css',
     creates => '/usr/bin/lessc',

@@ -42,6 +42,6 @@ Vagrant::Config.run do |config|
   end
 
   # Application provision
-  config.vm.provision :shell, :inline => "cd /vagrant && stdbuf -o0 fab build; exit 0"
+  config.vm.provision :shell, :inline => "cd /vagrant; exit 0"
 
 end
