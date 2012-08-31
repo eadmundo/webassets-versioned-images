@@ -1,2 +1,9 @@
-werkzeug
+# they all need this, obviously
 -e git://github.com/tobiasandtobias/webassets.git@feature/issue-117#egg=webassets
+
+# if just doing standalone, only werkzeug is needed
+werkzeug
+
+# for Flask
+Flask
+
