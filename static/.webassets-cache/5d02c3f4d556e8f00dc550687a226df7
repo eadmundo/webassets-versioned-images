@@ -1,0 +1,15 @@
+.tile-2 {
+    background-image: url(../genimg/tile-2.f8677077.png);
+}
+
+.tile-4 {
+    background-image: url(../genimg/tile-4.529062d2.png);
+}
+
+.tile-7 {
+    background-image: url(../genimg/tile-7.355726d0.png);
+}
+
+.tile-8 {
+    background-image: url(../genimg/tile-8.dbf391c1.png);
+}

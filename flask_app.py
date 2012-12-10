@@ -4,6 +4,8 @@ from flask.ext.assets import Environment, Bundle, ExternalAssets
 app = Flask(__name__)
 app.debug = True
 app.config['ASSETS_DEBUG'] = False
+app.config['ASSETS_URL'] = '//0.0.0.0:5001/static/'
+app.config['ASSETS_MANIFEST'] = 'file'
 
 assets = Environment(app)
 
@@ -31,9 +33,10 @@ assets.register('css', css)
 
 #print app.config
 
+
 @app.route('/')
 def index():
     return render_template('index.jinja')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5001)

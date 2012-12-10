@@ -1,10 +1,9 @@
-import os, sys
+import os
 
 from werkzeug.wrappers import Request, Response
 from werkzeug.wsgi import SharedDataMiddleware
 
 from webassets import Environment, Bundle, ExternalAssets
-from webassets.filter import get_filter
 
 environment = Environment('static', '/static')
 
@@ -13,15 +12,20 @@ manifest_path = os.path.realpath(os.path.join(os.path.dirname(__file__), '.stati
 environment.manifest = 'file://%s' % manifest_path
 environment.cache = False
 environment.auto_build = True
-environment.url = '//0.0.0.0:5000/static/'
+environment.url = '//0.0.0.0:5001/static/'
 #environment.debug = True
 
+#less = Bundle('less/main.less', filters='less', output='gencss/less.css')
+
 css = Bundle(
+    Bundle('less/main.less', filters='less', output='gencss/less.css'),
     'css/main.css',
     'css/sub/sub-main.css',
     filters='cssrewrite',
     output='gencss/css-merged.%(version)s.css'
 )
+
+external_solo = ExternalAssets('map.png')
 
 external_main = ExternalAssets(
     'css/img/*',
@@ -34,8 +38,10 @@ external_sub = ExternalAssets(
     output='genimg/'
 )
 
+environment.register('external_solo', external_solo)
 environment.register('external_main', external_main)
 environment.register('external_sub', external_sub)
+#environment.register('less', less)
 environment.register('css', css)
 environment.config['external_assets_output_folder'] = 'genimg/'
 
@@ -72,6 +78,7 @@ page = """
     }
 )
 
+
 class Standalone(object):
 
     def __init__(self, static_folder, page):
@@ -89,6 +96,7 @@ class Standalone(object):
     def __call__(self, environ, start_response):
         return self.wsgi_app(environ, start_response)
 
+
 def create_app(static_folder='/static', page='Hello World'):
     app = Standalone(static_folder, page)
     app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
@@ -99,4 +107,4 @@ def create_app(static_folder='/static', page='Hello World'):
 if __name__ == "__main__":
     from werkzeug.serving import run_simple
     app = create_app('/static', page)
-    run_simple('0.0.0.0', 5000, app, use_debugger=True, use_reloader=True)
+    run_simple('0.0.0.0', 5001, app, use_debugger=True, use_reloader=True)
